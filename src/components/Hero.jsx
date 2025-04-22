@@ -1,5 +1,5 @@
 import React from 'react'
-import './Hero.css'
+import './componentsStyling/Hero.css'
 
 export const Hero = () => {
   return (

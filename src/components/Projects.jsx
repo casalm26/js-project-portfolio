@@ -1,8 +1,7 @@
 import React from 'react'
 import { ProjectCard } from './ProjectCard'
-import './Projects.css'
+import './componentsStyling/Projects.css'
 
-// Sample project data - later this could come from an API or separate data file
 const projectsData = [
   {
     title: "Recipe app",
