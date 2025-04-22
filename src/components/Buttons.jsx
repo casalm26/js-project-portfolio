@@ -1,6 +1,12 @@
 import React from 'react'
 
 export const Button = ({ variant, label, icon, link }) => {
+  const handleClick = () => {
+    if (link) {
+      window.open(link, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   // Helper function to determine which button type to render
   const renderButton = () => {
     switch (variant) {
@@ -13,18 +19,18 @@ export const Button = ({ variant, label, icon, link }) => {
       
       case 'social':
         return (
-          <a href={link} className="button button-social" target="_blank" rel="noopener noreferrer">
+          <button onClick={handleClick} className="button button-social">
             {icon && <span className="button-icon">{icon}</span>}
             {label}
-          </a>
+          </button>
         )
       
       case 'external':
         return (
-          <a href={link} className="button button-external" target="_blank" rel="noopener noreferrer">
+          <button onClick={handleClick} className="button button-external">
             {label}
             <span className="button-arrow">→</span>
-          </a>
+          </button>
         )
       
       default:
