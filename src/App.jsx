@@ -11,8 +11,8 @@ export const App = () => {
       <Hero />
       <Tech />
       <Projects />
-      <Media />
       <Skills />
+      <Media />
       <Contact />
     </main>
   )
