@@ -4,7 +4,10 @@ import styled, { css } from 'styled-components'
 const ButtonBase = styled.button`
   border: none;
   cursor: pointer;
-  font-family: inherit;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -14,6 +17,11 @@ const ButtonBase = styled.button`
   
   &:hover {
     transform: translateY(-2px);
+  }
+
+  &:focus {
+    outline: 2px solid #000;
+    outline-offset: 2px;
   }
 `
 
@@ -30,8 +38,6 @@ const ExternalButton = styled(ButtonBase)`
   color: white;
   padding: 12px 24px;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
   
   &:hover {
     background-color: #333;
@@ -49,8 +55,6 @@ const OutlineButton = styled(ButtonBase)`
   padding: 12px 24px;
   border: 2px solid #000;
   border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 500;
   
   &:hover {
     background-color: #000;
@@ -91,13 +95,30 @@ export const Button = ({ variant, label, icon, link }) => {
             <path d="M5 12h14M12 5l7 7-7 7"/>
           </svg>
         )}
+        {icon === 'linkedin' && (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+        )}
+        {icon === 'twitter' && (
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+          </svg>
+        )}
       </IconWrapper>
     );
   };
 
   switch (variant) {
     case 'tech':
-      return <TechButton>{label}</TechButton>;
+      return (
+        <TechButton>
+          {label}
+          {renderIcon()}
+        </TechButton>
+      );
     
     case 'external':
       return (
@@ -116,7 +137,12 @@ export const Button = ({ variant, label, icon, link }) => {
       );
     
     default:
-      return <ButtonBase onClick={handleClick}>{label}</ButtonBase>;
+      return (
+        <ButtonBase onClick={handleClick}>
+          {label}
+          {renderIcon()}
+        </ButtonBase>
+      );
   }
 }
 
