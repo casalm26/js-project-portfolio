@@ -4,67 +4,89 @@ import styled, { css } from 'styled-components'
 const ButtonBase = styled.button`
   border: none;
   cursor: pointer;
-  font-family: 'Poppins', sans-serif;
+  font-family: ${({ theme }) => theme.fonts?.body || "'Poppins', sans-serif"};
   font-weight: 500;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   letter-spacing: 0.02em;
-  transition: all 0.2s ease;
+  transition: all var(--transition-normal);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--space-xs);
   text-decoration: none;
+  min-height: 44px; /* Minimum touch target size */
   
   &:hover {
     transform: translateY(-2px);
   }
 
-  &:focus {
-    outline: 2px solid #000;
+  &:focus-visible {
+    outline: 2px solid ${({ theme }) => theme.colors?.primary || '#000'};
     outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
   }
 `
 
 const TechButton = styled(ButtonBase)`
-  background-color: #F5F5F5;
-  color: #333;
-  padding: 4px 12px;
-  border-radius: 4px;
-  font-size: 0.875rem;
+  background-color: ${({ theme }) => theme.colors?.background || '#F5F5F5'};
+  color: ${({ theme }) => theme.colors?.text || '#333'};
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  border: 1px solid ${({ theme }) => theme.colors?.border || '#E5E5E5'};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors?.hover || '#E5E5E5'};
+  }
 `
 
 const ExternalButton = styled(ButtonBase)`
-  background-color: #000;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
+  background-color: ${({ theme }) => theme.colors?.primary || '#000'};
+  color: ${({ theme }) => theme.colors?.background || 'white'};
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
   
   &:hover {
-    background-color: #333;
+    background-color: ${({ theme }) => theme.colors?.primaryHover || '#333'};
   }
 
   svg {
     width: 20px;
     height: 20px;
   }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    width: 100%;
+  }
 `
 
 const OutlineButton = styled(ButtonBase)`
   background-color: transparent;
-  color: #000;
-  padding: 12px 24px;
-  border: 2px solid #000;
-  border-radius: 8px;
+  color: ${({ theme }) => theme.colors?.primary || '#000'};
+  padding: var(--space-sm) var(--space-md);
+  border: 2px solid ${({ theme }) => theme.colors?.primary || '#000'};
+  border-radius: var(--radius-md);
   
   &:hover {
-    background-color: #000;
-    color: white;
+    background-color: ${({ theme }) => theme.colors?.primary || '#000'};
+    color: ${({ theme }) => theme.colors?.background || 'white'};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    width: 100%;
   }
 `
 
 const IconWrapper = styled.span`
   display: inline-flex;
   align-items: center;
+  min-width: 20px;
 `
 
 export const Button = ({ variant, label, icon, link }) => {

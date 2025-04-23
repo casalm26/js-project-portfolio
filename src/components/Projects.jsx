@@ -4,32 +4,40 @@ import { ProjectCard } from './ProjectCard'
 import { Button } from './Buttons'
 
 const ProjectsSection = styled.section`
-  padding: 6rem 2rem;
-  max-width: 1200px;
+  padding: var(--space-xl) var(--space-lg);
+  max-width: min(1200px, 90vw);
   margin: 0 auto;
   width: 100%;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    padding: var(--space-lg) var(--space-md);
+  }
 `
 
 const ProjectsTitle = styled.h2`
-  font-size: 5rem;
-  margin-bottom: 4rem;
+  font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+  margin-bottom: var(--space-xl);
   text-align: center;
   font-weight: bold;
-  color: #000;
+  color: ${({ theme }) => theme.colors?.text || '#000'};
 `
 
 const ProjectsGrid = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 4rem;
+  gap: var(--space-xl);
   width: 100%;
-  margin-bottom: 4rem;
+  margin-bottom: var(--space-xl);
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    gap: var(--space-lg);
+  }
 `
 
 const SeeMoreContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
 `
 
 const projectsData = [

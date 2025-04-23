@@ -7,55 +7,69 @@ const HeroSection = styled.section`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 2rem;
+  padding: var(--space-lg);
   min-height: 100vh;
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors?.background || 'white'};
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    padding: var(--space-md);
+  }
 `
 
 const HeroContent = styled.div`
-  max-width: 800px;
+  max-width: min(800px, 90vw);
   margin: 0 auto;
 `
 
 const HeroTitle = styled.h1`
-  font-size: 1.125rem; // 18px
-  margin-bottom: 0.5rem;
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--space-xs);
   font-weight: normal;
+  color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
 const HeroName = styled.h2`
-  font-size: 5rem; // 80px
-  margin-bottom: 1rem;
+  font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
+  margin-bottom: var(--space-sm);
   font-weight: bold;
+  color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
 const HeroSubtitle = styled.h3`
-  font-size: 1.25rem; // 20px
-  margin-bottom: 1.5rem;
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+  margin-bottom: var(--space-md);
   font-weight: normal;
+  color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
 const HeroText = styled.p`
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1.6;
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
-  color: #333;
+  max-width: min(600px, 90vw);
+  margin: 0 auto var(--space-lg) auto;
+  color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
 const HeroImages = styled.div`
   display: flex;
   justify-content: center;
-  gap: -20px; // Negative gap for overlapping
-  margin: 2rem 0;
+  gap: -20px;
+  margin: var(--space-lg) 0;
+  flex-wrap: wrap;
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    gap: var(--space-sm);
+    margin: var(--space-md) 0;
+  }
 `
 
 const ImageCard = styled.div`
-  width: 300px;
-  height: 200px;
+  width: clamp(200px, 30vw, 300px);
+  height: clamp(133px, 20vw, 200px);
   position: relative;
   transform: rotate(${props => props.rotation}deg);
-  transition: transform 0.3s ease;
+  transition: transform var(--transition-normal);
+  margin: var(--space-xs);
 
   &:hover {
     transform: rotate(${props => props.rotation}deg) translateY(-10px);
@@ -65,13 +79,20 @@ const ImageCard = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    transform: rotate(0deg);
+    &:hover {
+      transform: translateY(-10px);
+    }
   }
 `
 
 const DownArrow = styled.div`
-  margin-top: 2rem;
+  margin-top: var(--space-lg);
   animation: bounce 2s infinite;
   
   @keyframes bounce {
@@ -84,6 +105,10 @@ const DownArrow = styled.div`
     60% {
       transform: translateY(-10px);
     }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 `
 
@@ -113,7 +138,7 @@ export const Hero = () => {
       </HeroImages>
       <DownArrow>
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4L12 20M12 20L18 14M12 20L6 14" stroke="black" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 4L12 20M12 20L18 14M12 20L6 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       </DownArrow>
     </HeroSection>
