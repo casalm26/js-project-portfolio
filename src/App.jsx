@@ -9,8 +9,8 @@ export const App = () => {
   return (
     <main>
       <Hero />
-      <Projects />
       <Tech />
+      <Projects />
       <Media />
       <Skills />
       <Contact />
