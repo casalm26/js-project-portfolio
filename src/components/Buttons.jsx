@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 const ButtonBase = styled.button`
   border: none;
-  cursor: pointer;
+  cursor: ${props => props.variant === 'tech' ? 'default' : 'pointer'};
   font-family: ${({ theme }) => theme.fonts?.body || "'Poppins', sans-serif"};
   font-weight: 500;
   font-size: var(--font-size-base);
@@ -20,11 +20,11 @@ const ButtonBase = styled.button`
   position: relative;
   
   &:hover {
-    transform: translateY(-2px);
+    transform: ${props => props.variant === 'tech' ? 'none' : 'translateY(-2px)'};
   }
 
   &:focus-visible {
-    outline: 3px solid ${({ theme }) => theme.colors?.primary || '#000'};
+    outline: ${props => props.variant === 'tech' ? 'none' : '3px solid ${({ theme }) => theme.colors?.primary || "#000"}'};
     outline-offset: 2px;
   }
 
@@ -41,16 +41,17 @@ const ButtonBase = styled.button`
 `
 
 const TechButton = styled(ButtonBase)`
-  background-color: ${({ theme }) => theme.colors?.background || '#F5F5F5'};
-  color: ${({ theme }) => theme.colors?.text || '#333'};
-  padding: var(--space-xs) var(--space-sm);
+  background-color: transparent;
+  color: white;
+  padding: 4px 12px;
   border-radius: var(--radius-sm);
-  font-size: var(--font-size-sm);
-  border: 1px solid ${({ theme }) => theme.colors?.border || '#E5E5E5'};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors?.hover || '#E5E5E5'};
-  }
+  font-size: 14px;
+  border: 1px solid white;
+  pointer-events: none;
+  min-height: 28px;
+  min-width: auto;
+  font-weight: 400;
+  line-height: 1.2;
 `
 
 const ExternalButton = styled(ButtonBase)`
@@ -116,6 +117,7 @@ const VisuallyHidden = styled.span`
 
 export const Button = ({ variant, label, icon, link, onClick, ariaLabel }) => {
   const handleClick = (e) => {
+    if (variant === 'tech') return; // Prevent click for tech buttons
     if (link) {
       window.open(link, '_blank', 'noopener,noreferrer');
     }
@@ -142,10 +144,10 @@ export const Button = ({ variant, label, icon, link, onClick, ariaLabel }) => {
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
           </svg>
         )}
-        {icon === 'arrow-right' && (
+        {icon === 'arrow-down' && (
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true" role="img">
-            <title>Arrow right icon</title>
-            <path d="M5 12h14M12 5l7 7-7 7"/>
+            <title>Arrow down icon</title>
+            <path d="M12 5v14M5 12l7 7 7-7"/>
           </svg>
         )}
         {icon === 'linkedin' && (
@@ -169,7 +171,8 @@ export const Button = ({ variant, label, icon, link, onClick, ariaLabel }) => {
   const buttonProps = {
     onClick: handleClick,
     'aria-label': ariaLabel || label,
-    role: link ? 'link' : 'button',
+    role: variant === 'tech' ? 'presentation' : (link ? 'link' : 'button'),
+    variant, // Pass variant to styled components
     ...(link && {
       'aria-haspopup': 'true',
       'aria-expanded': 'false',

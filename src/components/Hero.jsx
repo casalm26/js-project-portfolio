@@ -75,23 +75,6 @@ const HeroImages = styled.div`
     height: 150px;
     padding: 0 var(--space-sm);
   }
-`
-
-const ImageCard = styled.figure`
-  position: absolute;
-  width: clamp(200px, 30vw, 300px);
-  height: clamp(133px, 20vw, 200px);
-  margin: 0;
-  transform: ${props => {
-    if (props.position === 'left') return 'translateX(-70%) rotate(-5deg)';
-    if (props.position === 'right') return 'translateX(70%) rotate(5deg)';
-    return 'translateY(0) rotate(0deg)';
-  }};
-  z-index: ${props => {
-    if (props.position === 'center') return 3;
-    if (props.position === 'left') return 2;
-    return 1;
-  }};
 
   img {
     width: 100%;
@@ -99,11 +82,15 @@ const ImageCard = styled.figure`
     object-fit: cover;
     border-radius: var(--radius-md);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 3px;
+    }
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {
     width: clamp(160px, 25vw, 250px);
-    height: clamp(107px, 16.67vw, 167px);
+    height: clamp(160px, 25vw, 250px);
     transform: ${props => {
       if (props.position === 'left') return 'translateX(-60%) rotate(-5deg)';
       if (props.position === 'right') return 'translateX(60%) rotate(5deg)';
@@ -113,7 +100,7 @@ const ImageCard = styled.figure`
 
   @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
     width: clamp(120px, 20vw, 200px);
-    height: clamp(80px, 13.33vw, 133px);
+    height: clamp(120px, 20vw, 200px);
     transform: ${props => {
       if (props.position === 'left') return 'translateX(-50%) rotate(-5deg)';
       if (props.position === 'right') return 'translateX(50%) rotate(5deg)';
@@ -123,10 +110,69 @@ const ImageCard = styled.figure`
 
   @media (max-width: 360px) {
     width: clamp(90px, 18vw, 120px);
-    height: clamp(60px, 12vw, 80px);
+    height: clamp(90px, 18vw, 120px);
     transform: ${props => {
       if (props.position === 'left') return 'translateX(-40%) rotate(-5deg)';
       if (props.position === 'right') return 'translateX(40%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
+  }
+`
+
+const ImageCard = styled('figure')`
+  position: absolute;
+  width: clamp(200px, 30vw, 300px);
+  height: clamp(200px, 30vw, 300px);
+  margin: 0;
+  transform: ${({ $position }) => {
+    if ($position === 'left') return 'translateX(-70%) rotate(-5deg)';
+    if ($position === 'right') return 'translateX(70%) rotate(5deg)';
+    return 'translateY(0) rotate(0deg)';
+  }};
+  z-index: ${({ $position }) => {
+    if ($position === 'center') return 3;
+    if ($position === 'left') return 2;
+    return 1;
+  }};
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    &:focus-visible {
+      outline: 3px solid ${({ theme }) => theme.colors.primary};
+      outline-offset: 3px;
+    }
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {
+    width: clamp(160px, 25vw, 250px);
+    height: clamp(160px, 25vw, 250px);
+    transform: ${({ $position }) => {
+      if ($position === 'left') return 'translateX(-60%) rotate(-5deg)';
+      if ($position === 'right') return 'translateX(60%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+    width: clamp(120px, 20vw, 200px);
+    height: clamp(120px, 20vw, 200px);
+    transform: ${({ $position }) => {
+      if ($position === 'left') return 'translateX(-50%) rotate(-5deg)';
+      if ($position === 'right') return 'translateX(50%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
+  }
+
+  @media (max-width: 360px) {
+    width: clamp(90px, 18vw, 120px);
+    height: clamp(90px, 18vw, 120px);
+    transform: ${({ $position }) => {
+      if ($position === 'left') return 'translateX(-40%) rotate(-5deg)';
+      if ($position === 'right') return 'translateX(40%) rotate(5deg)';
       return 'translateY(0) rotate(0deg)';
     }};
   }
@@ -141,9 +187,8 @@ const DownArrow = styled.button`
   animation: bounce 2s infinite;
   
   &:focus-visible {
-    outline: 3px solid ${({ theme }) => theme.colors?.primary || '#000'};
-    outline-offset: 2px;
-    border-radius: var(--radius-sm);
+    outline: 3px solid ${({ theme }) => theme.colors.primary};
+    outline-offset: 3px;
   }
   
   @keyframes bounce {
@@ -164,15 +209,18 @@ const DownArrow = styled.button`
 `
 
 export const Hero = () => {
-  const handleScrollDown = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: 'smooth'
-    });
+  const scrollToProjects = () => {
+    const projectsSection = document.getElementById('projects');
+    if (projectsSection) {
+      projectsSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <HeroSection aria-labelledby="hero-title">
+    <HeroSection 
+      aria-labelledby="hero-title"
+      role="banner"
+    >
       <HeroContent>
         <HeroTitle id="hero-title">
           Hello there, I'm
@@ -186,37 +234,28 @@ export const Hero = () => {
         </HeroText>
       </HeroContent>
       <HeroImages role="presentation">
-        <ImageCard position="left">
+        <ImageCard $position="left">
           <img src="/assets/Desk Setup Image.jpg" alt="Desk setup with MacBook" loading="lazy" />
         </ImageCard>
-        <ImageCard position="center">
+        <ImageCard $position="center">
           <img src="/assets/IMG_3883_Original 2 2.jpg" alt="Portrait photo" loading="lazy" />
         </ImageCard>
-        <ImageCard position="right">
+        <ImageCard $position="right">
           <img src="/assets/Filip Kvasnak Unsplash.jpg" alt="Mountain landscape" loading="lazy" />
         </ImageCard>
       </HeroImages>
-      <DownArrow 
-        onClick={handleScrollDown}
-        aria-label="Scroll to next section"
+      <DownArrow
+        onClick={scrollToProjects}
+        aria-label="Scroll to projects section"
+        type="button"
       >
-        <svg 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
+        <img 
+          src="/assets/Caspian Arrow.svg" 
+          alt="" 
           aria-hidden="true"
-          role="img"
-        >
-          <path 
-            d="M12 4L12 20M12 20L18 14M12 20L6 14" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-          />
-        </svg>
+          width="28"
+          height="69"
+        />
       </DownArrow>
     </HeroSection>
   )

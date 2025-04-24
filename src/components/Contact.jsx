@@ -54,6 +54,26 @@ const SocialLinks = styled.div`
   }
 `
 
+const LinkedInButton = styled.a`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+`
+
 export const Contact = () => {
   return (
     <ContactSection>
@@ -68,11 +88,14 @@ export const Contact = () => {
         <p>caspian@houseofcaspian.com</p>
       </ContactInfo>
       <SocialLinks>
-        <Button 
-          variant="external" 
-          link="https://linkedin.com"
-          icon="linkedin"
-        />
+        <LinkedInButton 
+          href="https://linkedin.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit LinkedIn profile"
+        >
+          <img src="/assets/LinkedIn Button.svg" alt="" />
+        </LinkedInButton>
         <Button 
           variant="external" 
           link="https://github.com"

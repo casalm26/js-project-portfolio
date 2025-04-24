@@ -1,9 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
-  /* Import fonts */
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
-
   /* CSS Reset and Base Styles */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -25,9 +22,10 @@ export const GlobalStyles = createGlobalStyle`
   /* Set core body defaults */
   body {
     min-height: 100vh;
-    text-rendering: optimizeSpeed;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
     line-height: 1.5;
-    font-family: ${({ theme }) => theme.fonts?.body || "'Poppins', sans-serif"};
+    font-family: 'Poppins', sans-serif;
     background: ${({ theme }) => theme.colors?.background || '#FFFFFF'};
     color: ${({ theme }) => theme.colors?.text || '#333333'};
   }
@@ -40,8 +38,8 @@ export const GlobalStyles = createGlobalStyle`
     --font-size-lg: clamp(1.125rem, 1rem + 0.625vw, 1.25rem);
     --font-size-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.5rem);
     --font-size-2xl: clamp(1.5rem, 1.3rem + 1vw, 2rem);
-    --font-size-3xl: clamp(2rem, 1.8rem + 1.25vw, 3rem);
-    --font-size-4xl: clamp(3rem, 2.5rem + 2.5vw, 5rem);
+    --font-size-3xl: clamp(1.4rem, 1.4rem + 1.4vw, 2.8rem);
+    --font-size-4xl: clamp(2rem, 2rem + 2vw, 4rem);
     
     /* Spacing Scale */
     --space-xs: clamp(0.5rem, 0.4rem + 0.5vw, 0.75rem);
@@ -86,16 +84,76 @@ export const GlobalStyles = createGlobalStyle`
   /* Enhanced focus styles */
   :focus-visible {
     outline: 3px solid ${({ theme }) => theme.colors?.primary || '#000000'};
-    outline-offset: 2px;
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
-  /* Remove all animations, transitions and smooth scroll when user prefers reduced motion */
-  @media (prefers-reduced-motion: reduce) {
-    html:focus-within {
-      scroll-behavior: auto;
-    }
+  /* Skip to main content link */
+  .skip-to-content {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    background: ${({ theme }) => theme.colors?.primary || '#000000'};
+    color: ${({ theme }) => theme.colors?.background || '#FFFFFF'};
+    padding: var(--space-sm) var(--space-md);
+    z-index: 9999;
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    opacity: 0;
+    pointer-events: none;
     
-    *, *::before, *::after {
+    &:focus {
+      opacity: 1;
+      pointer-events: all;
+      top: var(--space-sm);
+    }
+  }
+
+  /* Improve keyboard navigation */
+  [tabindex="-1"] {
+    outline: none;
+  }
+
+  /* Ensure proper heading hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    margin-top: 0;
+  }
+
+  /* Improve link accessibility */
+  a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  /* Improve form element accessibility */
+  input, 
+  textarea, 
+  select, 
+  button {
+    font: inherit;
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  /* Improve table accessibility */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th {
+    text-align: left;
+  }
+
+  /* Remove animations when reduced motion is preferred */
+  @media (prefers-reduced-motion: reduce) {
+    * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
@@ -104,7 +162,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   /* Responsive breakpoints */
-  @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
+  @media (max-width: 480px) {
     :root {
       --font-size-base: 0.9rem;
     }
