@@ -76,7 +76,7 @@ export const Projects = () => {
         <Button 
           variant="outline" 
           label="See more projects" 
-          icon="arrow-right"
+          icon="arrow-down"
         />
       </SeeMoreContainer>
     </ProjectsSection>

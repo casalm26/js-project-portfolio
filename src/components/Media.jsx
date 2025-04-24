@@ -130,7 +130,7 @@ export const Media = () => {
         <Button 
           variant="outline" 
           label="See more articles" 
-          icon="arrow-right"
+          icon="arrow-down"
         />
       </SeeMoreContainer>
     </MediaSection>

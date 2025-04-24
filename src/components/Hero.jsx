@@ -53,27 +53,43 @@ const HeroText = styled.p`
 const HeroImages = styled.div`
   display: flex;
   justify-content: center;
-  gap: -20px;
-  margin: var(--space-lg) 0;
-  flex-wrap: wrap;
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  height: 300px;
+  margin: var(--space-lg) auto;
+  padding: 0 var(--space-xl);
+  
+  @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {
+    height: 250px;
+    padding: 0 var(--space-lg);
+  }
   
   @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
-    gap: var(--space-sm);
-    margin: var(--space-md) 0;
+    height: 200px;
+    padding: 0 var(--space-md);
+  }
+
+  @media (max-width: 360px) {
+    height: 150px;
+    padding: 0 var(--space-sm);
   }
 `
 
 const ImageCard = styled.div`
+  position: absolute;
   width: clamp(200px, 30vw, 300px);
   height: clamp(133px, 20vw, 200px);
-  position: relative;
-  transform: rotate(${props => props.rotation}deg);
-  transition: transform var(--transition-normal);
-  margin: var(--space-xs);
-
-  &:hover {
-    transform: rotate(${props => props.rotation}deg) translateY(-10px);
-  }
+  transform: ${props => {
+    if (props.position === 'left') return 'translateX(-70%) rotate(-5deg)';
+    if (props.position === 'right') return 'translateX(70%) rotate(5deg)';
+    return 'translateY(0) rotate(0deg)';
+  }};
+  z-index: ${props => {
+    if (props.position === 'center') return 3;
+    if (props.position === 'left') return 2;
+    return 1;
+  }};
 
   img {
     width: 100%;
@@ -83,11 +99,34 @@ const ImageCard = styled.div`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
+  @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {
+    width: clamp(160px, 25vw, 250px);
+    height: clamp(107px, 16.67vw, 167px);
+    transform: ${props => {
+      if (props.position === 'left') return 'translateX(-60%) rotate(-5deg)';
+      if (props.position === 'right') return 'translateX(60%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
+  }
+
   @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
-    transform: rotate(0deg);
-    &:hover {
-      transform: translateY(-10px);
-    }
+    width: clamp(120px, 20vw, 200px);
+    height: clamp(80px, 13.33vw, 133px);
+    transform: ${props => {
+      if (props.position === 'left') return 'translateX(-50%) rotate(-5deg)';
+      if (props.position === 'right') return 'translateX(50%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
+  }
+
+  @media (max-width: 360px) {
+    width: clamp(90px, 18vw, 120px);
+    height: clamp(60px, 12vw, 80px);
+    transform: ${props => {
+      if (props.position === 'left') return 'translateX(-40%) rotate(-5deg)';
+      if (props.position === 'right') return 'translateX(40%) rotate(5deg)';
+      return 'translateY(0) rotate(0deg)';
+    }};
   }
 `
 
@@ -126,13 +165,13 @@ export const Hero = () => {
         </HeroText>
       </HeroContent>
       <HeroImages>
-        <ImageCard rotation={-5}>
+        <ImageCard position="left">
           <img src="/assets/Desk Setup Image.jpg" alt="Desk setup with MacBook" />
         </ImageCard>
-        <ImageCard rotation={0}>
+        <ImageCard position="center">
           <img src="/assets/IMG_3883_Original 2 2.jpg" alt="Portrait photo" />
         </ImageCard>
-        <ImageCard rotation={5}>
+        <ImageCard position="right">
           <img src="/assets/Filip Kvasnak Unsplash.jpg" alt="Mountain landscape" />
         </ImageCard>
       </HeroImages>
@@ -143,4 +182,4 @@ export const Hero = () => {
       </DownArrow>
     </HeroSection>
   )
-} 
+}
