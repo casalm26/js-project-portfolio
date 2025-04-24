@@ -141,11 +141,8 @@ const ImageCard = styled('figure')`
     height: 100%;
     object-fit: cover;
     border-radius: var(--radius-md);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    &:focus-visible {
-      outline: 3px solid ${({ theme }) => theme.colors.primary};
-      outline-offset: 3px;
-    }
+    filter: grayscale(100%);
+    transition: filter var(--transition-normal);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {
