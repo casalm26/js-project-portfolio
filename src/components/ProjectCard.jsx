@@ -12,9 +12,6 @@ const Card = styled.article`
   gap: var(--space-xl);
   padding: var(--space-lg);
   transition: transform var(--transition-normal);
-
-  &:hover {
-    transform: translateY(-4px);
   }
 
   @media (max-width: ${({ theme }) => theme.breakpoints?.tablet || '768px'}) {

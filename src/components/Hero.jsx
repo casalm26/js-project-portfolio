@@ -28,14 +28,15 @@ const HeroTitle = styled.h1`
   color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
-const HeroName = styled.h2`
+const HeroName = styled.span`
+  display: block;
   font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
   margin-bottom: var(--space-sm);
   font-weight: bold;
   color: ${({ theme }) => theme.colors?.text || '#333'};
 `
 
-const HeroSubtitle = styled.h3`
+const HeroSubtitle = styled.h2`
   font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
   margin-bottom: var(--space-md);
   font-weight: normal;
@@ -76,10 +77,11 @@ const HeroImages = styled.div`
   }
 `
 
-const ImageCard = styled.div`
+const ImageCard = styled.figure`
   position: absolute;
   width: clamp(200px, 30vw, 300px);
   height: clamp(133px, 20vw, 200px);
+  margin: 0;
   transform: ${props => {
     if (props.position === 'left') return 'translateX(-70%) rotate(-5deg)';
     if (props.position === 'right') return 'translateX(70%) rotate(5deg)';
@@ -130,9 +132,19 @@ const ImageCard = styled.div`
   }
 `
 
-const DownArrow = styled.div`
+const DownArrow = styled.button`
   margin-top: var(--space-lg);
+  background: none;
+  border: none;
+  padding: var(--space-sm);
+  cursor: pointer;
   animation: bounce 2s infinite;
+  
+  &:focus-visible {
+    outline: 3px solid ${({ theme }) => theme.colors?.primary || '#000'};
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+  }
   
   @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
@@ -152,11 +164,20 @@ const DownArrow = styled.div`
 `
 
 export const Hero = () => {
+  const handleScrollDown = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <HeroSection>
+    <HeroSection aria-labelledby="hero-title">
       <HeroContent>
-        <HeroTitle>Hello there, I'm</HeroTitle>
-        <HeroName>Caspian</HeroName>
+        <HeroTitle id="hero-title">
+          Hello there, I'm
+          <HeroName>Caspian</HeroName>
+        </HeroTitle>
         <HeroSubtitle>Professional Generalist with Coding Capabilities</HeroSubtitle>
         <HeroText>
           I'm a pragmatic developer known for my broad experience in working across different
@@ -164,20 +185,37 @@ export const Hero = () => {
           and driving progress in businesses.
         </HeroText>
       </HeroContent>
-      <HeroImages>
+      <HeroImages role="presentation">
         <ImageCard position="left">
-          <img src="/assets/Desk Setup Image.jpg" alt="Desk setup with MacBook" />
+          <img src="/assets/Desk Setup Image.jpg" alt="Desk setup with MacBook" loading="lazy" />
         </ImageCard>
         <ImageCard position="center">
-          <img src="/assets/IMG_3883_Original 2 2.jpg" alt="Portrait photo" />
+          <img src="/assets/IMG_3883_Original 2 2.jpg" alt="Portrait photo" loading="lazy" />
         </ImageCard>
         <ImageCard position="right">
-          <img src="/assets/Filip Kvasnak Unsplash.jpg" alt="Mountain landscape" />
+          <img src="/assets/Filip Kvasnak Unsplash.jpg" alt="Mountain landscape" loading="lazy" />
         </ImageCard>
       </HeroImages>
-      <DownArrow>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 4L12 20M12 20L18 14M12 20L6 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <DownArrow 
+        onClick={handleScrollDown}
+        aria-label="Scroll to next section"
+      >
+        <svg 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
+        >
+          <path 
+            d="M12 4L12 20M12 20L18 14M12 20L6 14" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+          />
         </svg>
       </DownArrow>
     </HeroSection>
