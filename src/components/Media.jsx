@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Buttons'
+import content from '../data/content.json'
 
 const MediaSection = styled.section`
   padding: 6rem 2rem;
@@ -80,34 +81,12 @@ const SeeMoreContainer = styled.div`
   justify-content: center;
 `
 
-const articles = [
-  {
-    date: "2024-04-05",
-    title: "The antifragility of mass",
-    description: "Removing fragility doesn't mean something becomes antifragile. It means you've removed fragility. Afragile as some would say, or robust.",
-    link: "#",
-    image: "/assets/antifragility-of-mass.png"
-  },
-  {
-    date: "2024-03-30",
-    title: "You'll pay as much as you do to consume to get to the right people",
-    description: "In a digital society, the network is the most important thing there is. With a whole lot more arguing than I'm going to present here, they made a compelling argument that the people you have around you are going to be the most important asset you have.",
-    link: "#",
-    image: "/assets/pay-for-network.png"
-  },
-  {
-    date: "2024-03-23",
-    title: "The Decision Box",
-    description: '"Don\'t make 1000 decisions when 1 will do"',
-    link: "#",
-    image: "/assets/decision-box.png"
-  },
-]
-
 export const Media = () => {
+  const { title, articles } = content.media;
+  
   return (
     <MediaSection aria-labelledby="media-title">
-      <MediaTitle id="media-title">Media</MediaTitle>
+      <MediaTitle id="media-title">{title}</MediaTitle>
       <ArticlesGrid role="list" aria-label="Articles">
         {articles.map((article, index) => {
           const articleId = `article-${index + 1}`

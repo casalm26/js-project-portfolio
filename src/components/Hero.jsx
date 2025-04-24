@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import content from '../data/content.json'
 
 const HeroSection = styled.section`
   display: flex;
@@ -209,6 +210,8 @@ const DownArrow = styled.button`
 `
 
 export const Hero = () => {
+  const { greeting, name, title, description, images } = content.hero;
+  
   const scrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
     if (projectsSection) {
@@ -223,26 +226,22 @@ export const Hero = () => {
     >
       <HeroContent>
         <HeroTitle id="hero-title">
-          Hello there, I'm
-          <HeroName>Caspian</HeroName>
+          {greeting}
+          <HeroName>{name}</HeroName>
         </HeroTitle>
-        <HeroSubtitle>Professional Generalist with Coding Capabilities</HeroSubtitle>
-        <HeroText>
-          I'm a pragmatic developer known for my broad experience in working across different
-          industries. Be it with code, other tech or my interpersonal skills, I enjoy solving problems
-          and driving progress in businesses.
-        </HeroText>
+        <HeroSubtitle>{title}</HeroSubtitle>
+        <HeroText>{description}</HeroText>
       </HeroContent>
       <HeroImages role="presentation">
-        <ImageCard $position="left">
-          <img src="/assets/Desk Setup Image.jpg" alt="Desk setup with MacBook" loading="lazy" />
-        </ImageCard>
-        <ImageCard $position="center">
-          <img src="/assets/IMG_3883_Original 2 2.jpg" alt="Portrait photo" loading="lazy" />
-        </ImageCard>
-        <ImageCard $position="right">
-          <img src="/assets/Filip Kvasnak Unsplash.jpg" alt="Mountain landscape" loading="lazy" />
-        </ImageCard>
+        {images.map((image) => (
+          <ImageCard key={image.position} $position={image.position}>
+            <img 
+              src={image.src} 
+              alt={image.alt} 
+              loading="lazy" 
+            />
+          </ImageCard>
+        ))}
       </HeroImages>
       <DownArrow
         onClick={scrollToProjects}
