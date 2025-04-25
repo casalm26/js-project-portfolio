@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import { Button } from './Buttons'
 import content from '../data/content.json'
 
+// Main section container
 const MediaSection = styled.section`
-  padding: 6rem 2rem;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  width: 100%;
+  padding: 6rem 2rem;
 `
 
+// Section title
 const MediaTitle = styled.h2`
   font-size: clamp(2.5rem, 5vw, 5rem);
   margin-bottom: 4rem;
@@ -18,7 +20,8 @@ const MediaTitle = styled.h2`
   color: ${({ theme }) => theme.colors.text};
 `
 
-const ArticlesGrid = styled.ul`
+// Articles list
+const ArticlesList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 4rem;
@@ -27,6 +30,7 @@ const ArticlesGrid = styled.ul`
   padding: 0;
 `
 
+// Article card
 const ArticleCard = styled.li`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -39,6 +43,7 @@ const ArticleCard = styled.li`
   }
 `
 
+// Article image
 const ArticleImage = styled.img`
   width: 100%;
   border-radius: 8px;
@@ -46,12 +51,14 @@ const ArticleImage = styled.img`
   object-fit: cover;
 `
 
+// Article content container
 const ArticleContent = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
 `
 
+// Article date
 const ArticleDate = styled.time`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.text};
@@ -62,6 +69,7 @@ const ArticleDate = styled.time`
   margin-bottom: 16px;
 `
 
+// Article title
 const ArticleTitle = styled.h3`
   font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: bold;
@@ -69,6 +77,7 @@ const ArticleTitle = styled.h3`
   margin: 0;
 `
 
+// Article description
 const ArticleDescription = styled.p`
   font-size: 1rem;
   line-height: 1.6;
@@ -76,26 +85,35 @@ const ArticleDescription = styled.p`
   margin: 0;
 `
 
+// See more button container
 const SeeMoreContainer = styled.div`
   display: flex;
   justify-content: center;
 `
 
 export const Media = () => {
+  // Get content from JSON
   const { title, articles } = content.media;
   
   return (
     <MediaSection aria-labelledby="media-title">
-      <MediaTitle id="media-title">{title}</MediaTitle>
-      <ArticlesGrid role="list" aria-label="Articles">
+      {/* Section Title */}
+      <MediaTitle id="media-title">
+        {title}
+      </MediaTitle>
+
+      {/* Articles List */}
+      <ArticlesList role="list" aria-label="Articles">
         {articles.map((article, index) => {
           const articleId = `article-${index + 1}`
+          
           return (
             <ArticleCard 
               key={article.title}
               role="listitem"
               aria-labelledby={articleId}
             >
+              {/* Article Image */}
               <ArticleImage 
                 src={article.image} 
                 alt=""
@@ -104,12 +122,21 @@ export const Media = () => {
                 width="600"
                 height="450"
               />
+
+              {/* Article Content */}
               <ArticleContent>
                 <ArticleDate dateTime={article.date}>
-                  {new Date(article.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}
+                  {new Date(article.date).toLocaleDateString('en-US', { 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
                 </ArticleDate>
-                <ArticleTitle id={articleId}>{article.title}</ArticleTitle>
-                <ArticleDescription>{article.description}</ArticleDescription>
+                <ArticleTitle id={articleId}>
+                  {article.title}
+                </ArticleTitle>
+                <ArticleDescription>
+                  {article.description}
+                </ArticleDescription>
                 <Button 
                   variant="external" 
                   label="Read full article"
@@ -121,7 +148,9 @@ export const Media = () => {
             </ArticleCard>
           )
         })}
-      </ArticlesGrid>
+      </ArticlesList>
+
+      {/* See More Button */}
       <SeeMoreContainer>
         <Button 
           variant="outline" 

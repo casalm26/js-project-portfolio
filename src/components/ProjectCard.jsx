@@ -2,17 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 import { Button } from './Buttons'
 
+// Main card container
 const Card = styled.article`
-  background: ${({ theme }) => theme.colors?.background || 'white'};
-  border-radius: var(--radius-lg);
-  overflow: hidden;
   width: 100%;
   display: grid;
   grid-template-columns: ${props => props.isReversed ? '1fr 1fr' : '1fr 1fr'};
   gap: var(--space-xl);
   padding: var(--space-lg);
-  transition: transform var(--transition-normal);
   position: relative;
+  background: ${({ theme }) => theme.colors?.background || 'white'};
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: transform var(--transition-normal);
 
   &:focus-within {
     outline: 3px solid ${({ theme }) => theme.colors?.primary || '#000'};
@@ -26,6 +27,7 @@ const Card = styled.article`
   }
 `
 
+// Image container for consistent sizing
 const ImageContainer = styled.div`
   width: 100%;
   height: 400px;
@@ -43,6 +45,7 @@ const ImageContainer = styled.div`
   }
 `
 
+// Project image
 const ProjectImage = styled.img`
   width: 100%;
   height: 100%;
@@ -51,6 +54,7 @@ const ProjectImage = styled.img`
   display: block;
 `
 
+// Content container
 const ProjectContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -63,12 +67,14 @@ const ProjectContent = styled.div`
   }
 `
 
+// Tech stack container
 const TechStack = styled.div`
   display: flex;
   gap: var(--space-xs);
   flex-wrap: wrap;
 `
 
+// Project title
 const ProjectTitle = styled.h3`
   font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem);
   font-weight: bold;
@@ -76,6 +82,7 @@ const ProjectTitle = styled.h3`
   color: ${({ theme }) => theme.colors?.text || '#000'};
 `
 
+// Project description
 const ProjectDescription = styled.p`
   font-size: var(--font-size-base);
   line-height: 1.6;
@@ -83,6 +90,7 @@ const ProjectDescription = styled.p`
   margin: 0;
 `
 
+// Links container
 const ProjectLinks = styled.div`
   display: flex;
   gap: var(--space-sm);
@@ -96,6 +104,7 @@ const ProjectLinks = styled.div`
 `
 
 export const ProjectCard = ({ project, index, total }) => {
+  // Destructure project data
   const { 
     title, 
     description, 
@@ -107,6 +116,7 @@ export const ProjectCard = ({ project, index, total }) => {
     isReversed 
   } = project;
   
+  // Default alt text if none provided
   const defaultImageAlt = `Screenshot of ${title} project`;
   
   return (
@@ -117,6 +127,7 @@ export const ProjectCard = ({ project, index, total }) => {
       aria-posinset={index}
       aria-setsize={total}
     >
+      {/* Project Image */}
       <ImageContainer isReversed={isReversed}>
         <ProjectImage 
           src={image} 
@@ -126,12 +137,15 @@ export const ProjectCard = ({ project, index, total }) => {
           height="338"
         />
       </ImageContainer>
+
+      {/* Project Content */}
       <ProjectContent isReversed={isReversed}>
+        {/* Tech Stack */}
         <TechStack 
           role="list" 
           aria-label={`Technologies used in ${title}`}
         >
-          {techStack.map((tech, idx) => (
+          {techStack.map((tech) => (
             <div key={tech} role="listitem">
               <Button 
                 variant="tech" 
@@ -141,12 +155,16 @@ export const ProjectCard = ({ project, index, total }) => {
             </div>
           ))}
         </TechStack>
+
+        {/* Project Info */}
         <ProjectTitle id={`project-title-${index}`}>
           {title}
         </ProjectTitle>
         <ProjectDescription>
           {description}
         </ProjectDescription>
+
+        {/* Project Links */}
         <ProjectLinks>
           <Button 
             variant="external" 

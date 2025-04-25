@@ -4,17 +4,19 @@ import { ProjectCard } from './ProjectCard'
 import { Button } from './Buttons'
 import content from '../data/content.json'
 
+// Main section container
 const ProjectsSection = styled.section`
-  padding: var(--space-xl) var(--space-lg);
+  width: 100%;
   max-width: min(1200px, 90vw);
   margin: 0 auto;
-  width: 100%;
+  padding: var(--space-xl) var(--space-lg);
 
   @media (max-width: ${({ theme }) => theme.breakpoints?.mobile || '480px'}) {
     padding: var(--space-lg) var(--space-md);
   }
 `
 
+// Section title
 const ProjectsTitle = styled.h2`
   font-size: clamp(2.5rem, 5vw + 1rem, 5rem);
   margin-bottom: var(--space-xl);
@@ -23,7 +25,8 @@ const ProjectsTitle = styled.h2`
   color: ${({ theme }) => theme.colors?.text || '#000'};
 `
 
-const ProjectsGrid = styled.div`
+// Projects container
+const ProjectsList = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
@@ -35,6 +38,7 @@ const ProjectsGrid = styled.div`
   }
 `
 
+// See more button container
 const SeeMoreContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -42,6 +46,7 @@ const SeeMoreContainer = styled.div`
 `
 
 export const Projects = () => {
+  // Get content from JSON
   const { title, items } = content.projects;
   
   return (
@@ -49,8 +54,13 @@ export const Projects = () => {
       id="projects"
       aria-labelledby="projects-title"
     >
-      <ProjectsTitle id="projects-title">{title}</ProjectsTitle>
-      <ProjectsGrid 
+      {/* Section Title */}
+      <ProjectsTitle id="projects-title">
+        {title}
+      </ProjectsTitle>
+
+      {/* Projects List */}
+      <ProjectsList 
         role="list"
         aria-label="List of featured projects"
       >
@@ -62,7 +72,9 @@ export const Projects = () => {
             total={items.length}
           />
         ))}
-      </ProjectsGrid>
+      </ProjectsList>
+
+      {/* See More Button */}
       <SeeMoreContainer>
         <Button 
           variant="outline" 
