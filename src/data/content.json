@@ -6,17 +6,17 @@
     "description": "I'm a pragmatic developer known for my broad experience in working across different industries. Be it with code, other tech or my interpersonal skills, I enjoy solving problems and driving progress in businesses.",
     "images": [
       {
-        "src": "/assets/Desk Setup Image.jpg",
+        "src": "/assets/Computer Image.webp",
         "alt": "Desk setup with MacBook",
         "position": "left"
       },
       {
-        "src": "/assets/IMG_3883_Original 2 2.jpg",
+        "src": "/assets/IMG 3883 Original.webp",
         "alt": "Portrait photo",
         "position": "center"
       },
       {
-        "src": "/assets/Filip Kvasnak Unsplash.jpg",
+        "src": "/assets/mountain-image.jpeg",
         "alt": "Mountain landscape",
         "position": "right"
       }
