@@ -30,8 +30,8 @@
         "title": "Recipe app",
         "description": "I've never been interested in food. The first time I invited my friends for dinner, we had hamburgers. Easy enough, right? Well, I hadn't yet found the dark magic that makes anyone a chef — recipes. Here's my take on making a recipe app of my own!",
         "techStack": ["HTML5", "CSS3", "JavaScript"],
-        "liveDemo": "https://recipe-app-demo.netlify.app",
-        "viewCode": "https://github.com/yourusername/recipe-app",
+        "liveDemo": "https://caspianrecepiesite.netlify.app/",
+        "viewCode": "https://github.com/casalm26/js-project-recipe-library",
         "image": "/assets/recipe-website.svg",
         "imageAlt": "Screenshot of the Recipe App showing a clean, modern interface with recipe cards and search functionality",
         "isReversed": false
@@ -41,8 +41,8 @@
         "title": "Therapist client website",
         "description": "A friend of mine reached out and wanted a facelift for his business website. We agreed on a couple of fundamentals: colour scheme, tone and basic functionality. Here's the result!",
         "techStack": ["HTML5", "CSS3"],
-        "liveDemo": "https://therapist-website-demo.netlify.app",
-        "viewCode": "https://github.com/yourusername/therapist-website",
+        "liveDemo": "https://sweet-mochi-6eb873.netlify.app/",
+        "viewCode": "https://github.com/casalm26/js-project-business-site",
         "image": "/assets/therapy-website.svg",
         "imageAlt": "Screenshot of the Therapist Website featuring a professional and calming design with appointment booking functionality",
         "isReversed": true
